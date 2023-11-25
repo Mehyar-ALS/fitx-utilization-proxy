@@ -63,6 +63,7 @@ func main() {
 			return
 		}
 
+		c.Header("Access-Control-Allow-Origin", "*")
 		c.PureJSON(200, resp)
 	})
 
