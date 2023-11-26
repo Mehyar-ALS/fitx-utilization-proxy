@@ -39,6 +39,7 @@ func main() {
 
 	router.GET("/api/utilization/:studioId", func(c *gin.Context) {
 		id, err := strconv.ParseUint(c.Param("studioId"), 10, 64)
+		c.Header("Access-Control-Allow-Origin", "*")
 
 		if err != nil {
 			c.PureJSON(404, &responses.ErrorResponse{Message: "could not parse studio id"})
@@ -63,12 +64,12 @@ func main() {
 			return
 		}
 
-		c.Header("Access-Control-Allow-Origin", "*")
 		c.PureJSON(200, resp)
 	})
 
 	router.GET("/api/utilization-by-lat-lon", func(c *gin.Context) {
 		lat, err := strconv.ParseFloat(c.Query("lat"), 64)
+		c.Header("Access-Control-Allow-Origin", "*")
 
 		if err != nil {
 			c.PureJSON(404, &responses.ErrorResponse{Message: "could not parse latitude"})
@@ -99,6 +100,7 @@ func main() {
 	router.GET("/api/studios", func(c *gin.Context) {
 
 		resp := store.GetStudios()
+		c.Header("Access-Control-Allow-Origin", "*")
 
 		if resp == nil {
 			c.PureJSON(404, responses.ErrorResponse{
